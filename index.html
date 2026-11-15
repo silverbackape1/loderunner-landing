@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ru" data-lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LODERUNNER — платёжная инфраструктура</title>
+<meta name="description" content="LODERUNNER — платёжная инфраструктура для high-risk: P2P и H2H приём в локальных валютах, выплаты и расчёт в USDT.">
+<meta name="theme-color" content="#12081f">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Press+Start+2P&family=Tiny5&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="power" aria-hidden="true"></div>
+
+<header class="top" id="top">
+  <div class="top-in wrap">
+    <a class="logo" href="#hero" aria-label="LODERUNNER">
+      <svg class="logo-mark" viewBox="0 0 12 8" aria-hidden="true" shape-rendering="crispEdges">
+        <rect x="0" y="5" width="3" height="3"/><rect x="4" y="2.5" width="3" height="3"/><rect x="8" y="0" width="3" height="3"/>
+      </svg>
+      <span class="logo-word">LODERUNNER</span>
+    </a>
+
+    <nav class="menu" aria-label="Навигация">
+      <a href="#products"><span class="ru">Продукты</span><span class="en">Products</span></a>
+      <a href="#flow"><span class="ru">Путь платежа</span><span class="en">Flow</span></a>
+      <a href="#geo"><span class="ru">Гео</span><span class="en">Geo</span></a>
+      <a href="#api">API</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="top-ctrl">
+      <button class="chip" id="langBtn" type="button" aria-label="Switch language"><span class="ru">RU</span><span class="en">EN</span></button>
+      <button class="chip" id="sndBtn" type="button" aria-pressed="false">♪ <b>OFF</b></button>
+      <a class="btn btn-gold btn-sm" href="#start"><span class="ru">Подключиться</span><span class="en">Get started</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="wrap hero-head">
+    <div class="hero-copy">
+      <p class="kicker"><span class="blink">▶</span> <span class="ru">Платёжная инфраструктура · high-risk</span><span class="en">Payment infrastructure · high-risk</span></p>
+      <h1>
+        <span class="ru">Собираем золото.<br><em>Без game&nbsp;over.</em></span>
+        <span class="en">Collect the gold.<br><em>Skip the game&nbsp;over.</em></span>
+      </h1>
+      <p class="lead">
+        <span class="ru">Приём платежей в&nbsp;локальных валютах через P2P и&nbsp;H2H, выплаты и&nbsp;расчёт в&nbsp;USDT. Один API-ключ, маршрутизация между провайдерами и&nbsp;антифрод, который ловит врагов раньше, чем они доберутся до&nbsp;вашего баланса.</span>
+        <span class="en">Accept local-currency payments via P2P and H2H, pay out and settle in USDT. One API key, routing across providers, and antifraud that catches the bad guys before they get anywhere near your balance.</span>
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#start">PRESS START</a>
+        <a class="btn btn-ghost" href="#api"><span class="ru">Смотреть API</span><span class="en">See the API</span></a>
+      </div>
+    </div>
+
+    <aside class="cart-label" aria-label="Spec">
+      <div class="cart-notch" aria-hidden="true"></div>
+      <div class="cart-inner">
+        <p class="cart-top">8-BIT PAYMENT SYSTEM</p>
+        <dl class="spec">
+          <div><dt>CART</dt><dd>LR-01</dd></div>
+          <div><dt><span class="ru">ЖАНР</span><span class="en">GENRE</span></dt><dd>PAYMENTS</dd></div>
+          <div><dt><span class="ru">ИГРОКИ</span><span class="en">PLAYERS</span></dt><dd>B2B</dd></div>
+          <div><dt>CONTROLS</dt><dd>H2H API</dd></div>
+          <div><dt>SAVE</dt><dd>USDT</dd></div>
+        </dl>
+        <p class="cart-foot"><span class="ru">Совместим со всеми мерчантами</span><span class="en">Compatible with all merchants</span></p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="wrap stage">
+    <div class="hud" aria-hidden="true">
+      <div><span>PAID $</span><b id="hudPaid">000000</b></div>
+      <div><span>GOLD</span><b id="hudGold">0/3</b></div>
+      <div class="hud-stage"><span>STAGE</span><b id="hudStage">REQUEST</b></div>
+      <div><span>FRAUD</span><b id="hudFraud">00</b></div>
+    </div>
+    <div class="screen">
+      <canvas id="level" role="img" aria-label="Анимация: монета-платёж проходит уровень, фрод проваливается в яму"></canvas>
+      <div class="fx" id="levelFx" aria-hidden="true"></div>
+    </div>
+    <ul class="legend">
+      <li><i class="spr" data-spr="coin"></i><span class="ru">Монета — ваш платёж</span><span class="en">The coin is your payment</span></li>
+      <li><i class="spr" data-spr="ladder"></i><span class="ru">Лестницы — маршрутизация</span><span class="en">Ladders are routing</span></li>
+      <li><i class="spr" data-spr="enemy"></i><span class="ru">Красные — фрод. Падают в яму и не выбираются</span><span class="en">Red ones are fraud. They fall in the pit and stay there</span></li>
+    </ul>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker">
+    <span>RUB 1 000 · SBP <i>&gt;</i> 12.16 USDT <b class="ok">OK</b></span>
+    <span>CALLBACK status: done <b class="ok">200</b></span>
+    <span>TRY 4 250 <i>&gt;</i> 98.12 USDT <b class="ok">OK</b></span>
+    <span>403 client_blacklisted <b class="bad">X BLOCKED</b></span>
+    <span>KZT 56 000 <i>&gt;</i> 108.70 USDT <b class="ok">OK</b></span>
+    <span>409 duplicate_external_id <b class="bad">X DUPLICATE</b></span>
+    <span>UZS 1 250 000 <i>&gt;</i> 97.30 USDT <b class="ok">OK</b></span>
+    <span>PAYOUT 2 400 USDT <i>&gt;</i> TRC-20 <b class="ok">OK</b></span>
+    <span>AZN 300 <i>&gt;</i> 176.40 USDT <b class="ok">OK</b></span>
+  </div>
+</div>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="sec" id="products">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="world">WORLD 1-1 · SELECT PRODUCT</p>
+      <h2><span class="ru">Шесть картриджей.<br>Одна консоль.</span><span class="en">Six cartridges.<br>One console.</span></h2>
+      <p class="sec-sub"><span class="ru">Подключайте методы по одному или все сразу. Интеграция при этом одна.</span><span class="en">Plug in methods one by one or all at once. It's still one integration.</span></p>
+    </header>
+
+    <div class="carts">
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="p2p"></i><span class="cart-code">LR-02</span></div>
+        <h3><span class="ru">Приём P2P</span><span class="en">P2P pay-in</span></h3>
+        <p><span class="ru">Клиент платит привычным локальным переводом. Реквизиты подбираются под сумму, банк и&nbsp;лимиты.</span><span class="en">Customers pay with a familiar local transfer. Requisites are matched to the amount, bank and limits.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="api"></i><span class="cart-code">LR-03</span></div>
+        <h3>H2H API</h3>
+        <p><span class="ru">Server-to-server без редиректов. Один токен, <code>POST /v1/orders/</code>&nbsp;— и&nbsp;реквизиты уже в&nbsp;ответе.</span><span class="en">Server-to-server, no redirects. One token, <code>POST /v1/orders/</code> and the requisites are in the response.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="usdt"></i><span class="cart-code">LR-04</span></div>
+        <h3><span class="ru">Расчёт в USDT</span><span class="en">USDT settlement</span></h3>
+        <p><span class="ru">Баланс пополняется в&nbsp;момент закрытия сделки, по&nbsp;курсу из&nbsp;ответа. Вывод на&nbsp;ваш кошелёк по&nbsp;запросу.</span><span class="en">Your balance is credited the moment a deal closes, at the rate from the response. Withdraw to your wallet on request.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="payout"></i><span class="cart-code">LR-05</span></div>
+        <h3><span class="ru">Выплаты</span><span class="en">Payouts</span></h3>
+        <p><span class="ru">На&nbsp;карту, счёт или по&nbsp;номеру телефона через СБП. Каждый шаг от&nbsp;«в&nbsp;пуле» до&nbsp;«выплачена» приходит колбэком.</span><span class="en">To a card, an account or a phone number via SBP. Every step from "in pool" to "paid" arrives as a callback.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="shield"></i><span class="cart-code">LR-06</span></div>
+        <h3><span class="ru">Антифрод и споры</span><span class="en">Antifraud &amp; disputes</span></h3>
+        <p><span class="ru">Чёрный список по&nbsp;<code>client_id</code>, споры с&nbsp;файлом-подтверждением и&nbsp;учёт частичных возвратов без&nbsp;двойного списания.</span><span class="en">A blacklist by <code>client_id</code>, disputes backed by evidence files, and partial chargebacks without double deductions.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+      <article class="cart reveal" tabindex="0">
+        <div class="cart-head"><i class="spr spr-lg" data-spr="chart"></i><span class="cart-code">LR-07</span></div>
+        <h3><span class="ru">Кабинет</span><span class="en">Dashboard</span></h3>
+        <p><span class="ru">Сделки, баланс, токены и&nbsp;методы оплаты на&nbsp;одном экране. Данные обновляются в&nbsp;реальном времени.</span><span class="en">Deals, balance, tokens and payment methods on one screen. Data updates in real time.</span></p>
+        <span class="cart-sel">▶ SELECT</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLOW / MAP ============ -->
+<section class="sec sec-bricks" id="flow">
+  <div class="wrap">
+    <header class="sec-head reveal">
+      <p class="world">WORLD 1-2 · MAP</p>
+      <h2><span class="ru">Путь платежа —<br>шесть уровней</span><span class="en">A payment's journey —<br>six levels</span></h2>
+    </header>
+
+    <div class="map reveal" id="map">
+      <svg class="map-path" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M50 30 H550" />
+      </svg>
+      <ol class="map-nodes" id="mapNodes">
+        <li><button type="button" data-i="0"><b>1</b><span>REQUEST</span></button></li>
+        <li><button type="button" data-i="1"><b>2</b><span>ROUTE</span></button></li>
+        <li><button type="button" data-i="2"><b>3</b><span>ISSUED</span></button></li>
+        <li><button type="button" data-i="3"><b>4</b><span>DONE</span></button></li>
+        <li><button type="button" data-i="4"><b>5</b><span>CALLBACK</span></button></li>
+        <li><button type="button" data-i="5"><b>6</b><span>BALANCE</span></button></li>
+      </ol>
+      <i class="map-token spr" data-spr="coin" id="mapToken" aria-hidden="true"></i>
+    </div>
+
+    <div class="dialog reveal" aria-live="polite">
+      <p class="dialog-title" id="dlgTitle">LEVEL 1 · REQUEST</p>
+      <p class="dialog-text"><span id="dlgText"></span><span class="caret">▼</span></p>
+      <div class="dialog-nav">
+        <button type="button" class="chip" id="dlgPrev" aria-label="Prev">◀</button>
+        <button type="button" class="chip" id="dlgNext" aria-label="Next">▶</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GEO ============ -->
+<section class="sec" id="geo">
+  <div class="wrap geo-grid">
+    <header class="sec-head reveal">
+      <p class="world">WORLD 1-3 · WORLD SELECT</p>
+      <h2><span class="ru">Выберите мир</span><span class="en">Choose your world</span></h2>
+      <p class="sec-sub"><span class="ru">В каждой стране принимаем теми методами, которыми там привыкли платить. Расчёт&nbsp;— в&nbsp;одной валюте.</span><span class="en">In every country we accept the methods people there already pay with. Settlement is in a single currency.</span></p>
+    </header>
+
+    <ul class="worlds">
+      <li class="w reveal"><span class="w-n">1-1</span><b class="w-cc">RU</b><span class="w-name"><span class="ru">РОССИЯ</span><span class="en">RUSSIA</span></span><span class="w-cur">RUB</span><span class="w-m">SBP · C2C</span></li>
+      <li class="w reveal"><span class="w-n">1-2</span><b class="w-cc">UZ</b><span class="w-name"><span class="ru">УЗБЕКИСТАН</span><span class="en">UZBEKISTAN</span></span><span class="w-cur">UZS</span><span class="w-m">CARD · P2P</span></li>
+      <li class="w reveal"><span class="w-n">1-3</span><b class="w-cc">AZ</b><span class="w-name"><span class="ru">АЗЕРБАЙДЖАН</span><span class="en">AZERBAIJAN</span></span><span class="w-cur">AZN</span><span class="w-m">CARD · P2P</span></li>
+      <li class="w reveal"><span class="w-n">1-4</span><b class="w-cc">KZ</b><span class="w-name"><span class="ru">КАЗАХСТАН</span><span class="en">KAZAKHSTAN</span></span><span class="w-cur">KZT</span><span class="w-m">CARD · P2P</span></li>
+      <li class="w reveal"><span class="w-n">1-5</span><b class="w-cc">KG</b><span class="w-name"><span class="ru">КИРГИЗИЯ</span><span class="en">KYRGYZSTAN</span></span><span class="w-cur">KGS</span><span class="w-m">CARD · P2P</span></li>
+      <li class="w reveal"><span class="w-n">1-6</span><b class="w-cc">TR</b><span class="w-name"><span class="ru">ТУРЦИЯ</span><span class="en">TÜRKİYE</span></span><span class="w-cur">TRY</span><span class="w-m">FAST · HAVALE</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ HIGH SCORES ============ -->
+<section class="sec sec-dark" id="scores">
+  <div class="wrap scores-wrap">
+    <div class="scores reveal">
+      <p class="scores-title">HIGH SCORES</p>
+      <table>
+        <thead><tr><th>RANK</th><th>SCORE</th><th>NAME</th></tr></thead>
+        <tbody>
+          <tr><td>1ST</td><td data-count="99.95" data-suffix="%" data-dec="2">99.95%</td><td>UPTIME</td></tr>
+          <tr><td>2ND</td><td>24/7</td><td><span class="ru">ПОДДЕРЖКА</span><span class="en">SUPPORT</span></td></tr>
+          <tr><td>3RD</td><td data-count="1" data-suffix=" DAY">1 DAY</td><td><span class="ru">ИНТЕГРАЦИЯ</span><span class="en">INTEGRATION</span></td></tr>
+          <tr class="new"><td>4TH</td><td data-count="6">6</td><td><span class="ru">СТРАН</span><span class="en">GEOS</span> <em class="blink">NEW!</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="scores-side reveal">
+      <p class="world">WORLD 1-4</p>
+      <h2><span class="ru">Рекорды, которые держим каждый день</span><span class="en">Records we hold every day</span></h2>
+      <p class="sec-sub"><span class="ru">Один удачный забег&nbsp;— это спидран. Мы держим эти цифры постоянно: аптайм, срок интеграции и&nbsp;поддержку в&nbsp;любое время суток.</span><span class="en">One lucky run is a speedrun. We hold these numbers all the time: uptime, integration time and support at any hour.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ API ============ -->
+<section class="sec" id="api">
+  <div class="wrap api-grid">
+    <header class="sec-head reveal">
+      <p class="world">WORLD 1-5 · CONTROLS</p>
+      <h2><span class="ru">Один ключ.<br>Полный контроль.</span><span class="en">One key.<br>Full control.</span></h2>
+      <ul class="pad-list">
+        <li><kbd>A</kbd><span class="ru">Курс фиксируется в&nbsp;ответе на&nbsp;создание заявки. Считаете по&nbsp;нему&nbsp;— и&nbsp;сумма сходится до&nbsp;шестого знака.</span><span class="en">The rate is locked in the order creation response. Calculate by it and the numbers match to the sixth decimal.</span></li>
+        <li><kbd>B</kbd><span class="ru">Защита от&nbsp;дублей по&nbsp;<code>external_id</code>: на&nbsp;повтор придёт 409, вторая заявка не&nbsp;создастся.</span><span class="en">Duplicate protection via <code>external_id</code>: a retry gets 409 and no second order is created.</span></li>
+        <li><kbd>↑</kbd><span class="ru">Колбэки несут ваш секрет в&nbsp;<code>X-Webhook-Signature</code>. Не&nbsp;дошёл ответ&nbsp;— повторим до&nbsp;8&nbsp;раз.</span><span class="en">Callbacks carry your secret in <code>X-Webhook-Signature</code>. No 2xx back — we retry up to 8 times.</span></li>
+        <li><kbd>↓</kbd><span class="ru">Тестовый контур и&nbsp;<code>GET /v1/auth-test/</code>: сразу видно права токена и&nbsp;ваши направления.</span><span class="en">A dev environment and <code>GET /v1/auth-test/</code>: see your token's permissions and routes right away.</span></li>
+      </ul>
+    </header>
+
+    <div class="term reveal">
+      <div class="term-tabs" role="tablist">
+        <button type="button" role="tab" class="on" data-tab="req">REQUEST</button>
+        <button type="button" role="tab" data-tab="res">201</button>
+        <button type="button" role="tab" data-tab="hook">CALLBACK</button>
+        <button type="button" role="tab" data-tab="dup">409</button>
+      </div>
+      <pre class="term-body"><code id="termCode"></code><span class="term-cur">█</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sec sec-bricks" id="faq">
+  <div class="wrap faq-wrap">
+    <header class="sec-head reveal">
+      <p class="world">WORLD 1-6 · CHEAT CODES</p>
+      <h2><span class="ru">Чит-коды</span><span class="en">Cheat codes</span></h2>
+    </header>
+    <div class="faq">
+      <details class="reveal">
+        <summary><i>01</i><span class="ru">Сколько занимает интеграция?</span><span class="en">How long does integration take?</span></summary>
+        <p><span class="ru">Обычно от&nbsp;одного до&nbsp;трёх дней: H2H API, тестовый контур и&nbsp;инженер на&nbsp;связи всё это время.</span><span class="en">Usually one to three days: H2H API, a dev environment and an engineer on call the whole time.</span></p>
+      </details>
+      <details class="reveal">
+        <summary><i>02</i><span class="ru">Какие комиссии?</span><span class="en">What are the fees?</span></summary>
+        <p><span class="ru">Ставка зависит от&nbsp;гео, метода и&nbsp;объёма. Считаем индивидуально и&nbsp;фиксируем в&nbsp;договоре, без скрытых платежей.</span><span class="en">Rates depend on geo, method and volume. We quote individually and fix it in the agreement, with no hidden fees.</span></p>
+      </details>
+      <details class="reveal">
+        <summary><i>03</i><span class="ru">С какими проектами работаете?</span><span class="en">What kind of projects do you take?</span></summary>
+        <p><span class="ru">Специализируемся на&nbsp;high-risk вертикалях. Каждый проект проходит онбординг: расскажите о&nbsp;своём, и&nbsp;мы ответим, подходим ли&nbsp;друг другу.</span><span class="en">We specialise in high-risk verticals. Every project goes through onboarding: tell us about yours and we'll tell you whether we're a fit.</span></p>
+      </details>
+      <details class="reveal">
+        <summary><i>04</i><span class="ru">Как выводить средства?</span><span class="en">How do I withdraw?</span></summary>
+        <p><span class="ru">В&nbsp;USDT на&nbsp;ваш кошелёк, по&nbsp;запросу. Остаток всегда видно в&nbsp;кабинете и&nbsp;через API.</span><span class="en">In USDT to your wallet, on request. Your balance is always visible in the dashboard and via the API.</span></p>
+      </details>
+      <details class="reveal">
+        <summary><i>05</i><span class="ru">А настоящий чит-код есть?</span><span class="en">Is there a real cheat code?</span></summary>
+        <p><span class="ru">Есть. Наберите на&nbsp;клавиатуре <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd></span><span class="en">There is. Type this on your keyboard: <kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd></span></p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTINUE / CTA ============ -->
+<section class="sec continue" id="start">
+  <div class="wrap cont-grid">
+    <div class="cont-left reveal">
+      <p class="world">WORLD 1-7</p>
+      <p class="cont-big">CONTINUE?<b id="countdown">9</b></p>
+      <p class="sec-sub"><span class="ru">Напишите нам в&nbsp;Telegram&nbsp;— ответим в&nbsp;тот же день.</span><span class="en">Message us on Telegram — we reply the same day.</span></p>
+      <ul class="contacts">
+        <li><span>TELEGRAM</span><a href="https://t.me/Rick_LodeRunner" target="_blank" rel="noopener">@Rick_LodeRunner</a></li>
+      </ul>
+    </div>
+
+    <form class="form reveal" id="leadForm" novalidate>
+      <p class="form-title"><span class="ru">НОВЫЙ ИГРОК</span><span class="en">NEW PLAYER</span></p>
+      <label><span class="ru">Компания / проект</span><span class="en">Company / project</span>
+        <input name="company" required autocomplete="organization" maxlength="120" data-ph-ru="Например, Acme" data-ph-en="e.g. Acme">
+      </label>
+      <fieldset class="geo-pick">
+        <legend><span class="ru">Гео</span><span class="en">Geo</span></legend>
+        <label><input type="checkbox" name="geo" value="RU"><span>RU</span></label>
+        <label><input type="checkbox" name="geo" value="UZ"><span>UZ</span></label>
+        <label><input type="checkbox" name="geo" value="AZ"><span>AZ</span></label>
+        <label><input type="checkbox" name="geo" value="KZ"><span>KZ</span></label>
+        <label><input type="checkbox" name="geo" value="KG"><span>KG</span></label>
+        <label><input type="checkbox" name="geo" value="TR"><span>TR</span></label>
+      </fieldset>
+      <button class="btn btn-gold btn-block" type="submit">▶ <span class="ru">Написать в Telegram</span><span class="en">Send via Telegram</span></button>
+      <p class="form-note" id="formNote"><span class="ru">Откроем чат с&nbsp;@Rick_LodeRunner с&nbsp;готовым сообщением&nbsp;— останется нажать «Отправить». Текст также скопируется в&nbsp;буфер.</span><span class="en">We'll open a chat with @Rick_LodeRunner with the message ready — just hit Send. The text is also copied to your clipboard.</span></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="ground" aria-hidden="true"></div>
+  <div class="wrap foot-in">
+    <a class="logo" href="#hero">
+      <svg class="logo-mark" viewBox="0 0 12 8" aria-hidden="true" shape-rendering="crispEdges">
+        <rect x="0" y="5" width="3" height="3"/><rect x="4" y="2.5" width="3" height="3"/><rect x="8" y="0" width="3" height="3"/>
+      </svg>
+      <span class="logo-word">LODERUNNER</span>
+    </a>
+    <p class="push blink">PUSH START BUTTON</p>
+    <p class="copy">© 2026 LODERUNNER</p>
+  </div>
+</footer>
+
+<div class="rain" id="rain" aria-hidden="true"></div>
+
+<script src="js/sprites.js"></script>
+<script src="js/level.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
