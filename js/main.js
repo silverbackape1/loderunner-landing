@@ -92,7 +92,7 @@
     ru: 'Анимация: монета-платёж проходит уровень, фрод проваливается в яму',
     en: 'Animation: a payment coin clears the level while fraud falls into a pit',
   };
-  let lang = localStorage.getItem('lr-lang') || ((navigator.language || 'ru').toLowerCase().startsWith('ru') ? 'ru' : 'en');
+  let lang = localStorage.getItem('lr-lang') || 'en';
   function setLang(l) {
     lang = l;
     root.dataset.lang = l;
