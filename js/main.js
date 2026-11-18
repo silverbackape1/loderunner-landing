@@ -12,24 +12,29 @@
 
   /* ---------- cursor ---------- */
   const ARROW = [
-    'k.........',
-    'kk........',
-    'kwk.......',
-    'kwwk......',
-    'kwwwk.....',
-    'kwwwwk....',
-    'kwwwwwk...',
-    'kwwwwwwk..',
-    'kwwwwwwwk.',
-    'kwwwwkkkkk',
-    'kwwkwk....',
-    'kwk.kwk...',
-    'kk...kwk..',
-    '......kk..',
+    'k...........',
+    'kk..........',
+    'kwk.........',
+    'kwwk........',
+    'kwwwk.......',
+    'kwwwwk......',
+    'kwwwwwk.....',
+    'kwwwwwwk....',
+    'kwwwwwwwk...',
+    'kwwwwwwwwk..',
+    'kwwwwwwwwwk.',
+    'kwwwwwkkkkkk',
+    'kwwkwwk.....',
+    'kwkkwwk.....',
+    'kk..kwwk....',
+    'k...kwwk....',
+    '.....kwwk...',
+    '.....kwwk...',
+    '......kk....',
   ];
   function cursorUrl(fill) {
     const s = window.SPR.svg(ARROW, { k: '#12081f', w: fill })
-      .replace('<svg ', '<svg width="20" height="28" ');
+      .replace('<svg ', '<svg width="24" height="38" ');
     return `url("data:image/svg+xml,${encodeURIComponent(s)}") 0 0`;
   }
   root.style.setProperty('--cur', cursorUrl('#cdb8ff') + ', auto');
@@ -42,6 +47,7 @@
     if (!soundOn) return;
     dur = dur || 0.05; vol = vol || 0.04;
     ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') ac.resume();
     const t = ac.currentTime;
     freqs.forEach((f, i) => {
       const o = ac.createOscillator(), g = ac.createGain();
@@ -55,6 +61,8 @@
     });
   };
   const beep = window.LR_beep;
+  const unlockAudio = () => { if (ac && ac.state === 'suspended') ac.resume(); };
+  ['pointerdown', 'keydown', 'touchstart'].forEach((t) => addEventListener(t, unlockAudio, { passive: true }));
   const sndBtn = $('#sndBtn');
   function paintSound() {
     sndBtn.querySelector('b').textContent = soundOn ? 'ON' : 'OFF';
@@ -118,7 +126,7 @@
         el.removeEventListener('animationend', done);
         settle();
       });
-      setTimeout(settle, delay + 700);
+      setTimeout(settle, delay + 900);
       io.unobserve(el);
     });
   }, { threshold: 0.15 });
@@ -177,6 +185,7 @@
     placeToken();
     const s = STAGES[stageIdx];
     dlgTitle.textContent = `LEVEL ${stageIdx + 1} · ${s.n}`;
+    $('#dlgGhost').textContent = STAGES.reduce((a, b) => (b[lang].length > a.length ? b[lang] : a), '') + ' __';
     typeInto(dlgText, s[lang], instant ? 0 : 22, scheduleAuto);
   }
   function scheduleAuto() {
@@ -219,25 +228,25 @@
     const secret = lang === 'ru' ? '<секрет из кабинета>' : '<secret from your dashboard>';
     switch (key) {
       case 'req': return [
-        '<span class="c-m">POST</span> https://api.loderun.pro/v1/orders/',
+        '<span class="c-m">POST</span> /v1/orders/',
         hdr('Authorization', 'Bearer 3f9a…c41e'),
         '',
-        json({ amount: 1000, currency: 'RUB', order_type: 'sbp', external_id: 'ORD-2048', client_id: 'user-77', callback_url: HOOK_URL }),
+        json({ amount: 500000, currency: 'UZS', order_type: 'c2c', external_id: 'ORD-2048', client_id: 'user-77', callback_url: HOOK_URL }),
       ].join('\n');
       case 'res': return [
         '<span class="c-ok">201 Created</span>',
         '',
         json({
-          success: true, id: ORDER_ID, amount: '1000.00',
-          amount_crypto: '12.345679', merchant_amount: '12.160494', rate: raw('81.0'),
-          status_const: 'issued', card: '+7 9•• •••-••-17', expired_at: '2026-09-12 12:15:00',
+          success: true, id: ORDER_ID, amount: '500000.00',
+          amount_crypto: '39.525692', merchant_amount: '38.932806', rate: raw('12650.0'),
+          status_const: 'issued', card: '8600 •••• •••• 4417', expired_at: '2026-09-12 12:15:00',
         }, true),
       ].join('\n');
       case 'hook': return [
         `<span class="c-m">POST</span> ${HOOK_URL}`,
         hdr('X-Webhook-Signature', secret),
         '',
-        json({ order_id: ORDER_ID, integrator_order_id: 'ORD-2048', amount: '1000.00', merchant_amount: '12.160494', rate: raw('81.0'), status: 'done' }, true),
+        json({ order_id: ORDER_ID, integrator_order_id: 'ORD-2048', amount: '500000.00', merchant_amount: '38.932806', rate: raw('12650.0'), status: 'done' }, true),
       ].join('\n');
       case 'dup': return [
         '<span class="c-bad">409 Conflict</span>',
@@ -299,15 +308,14 @@
         const to = parseFloat(td.dataset.count), dec = +(td.dataset.dec || 0);
         const pre = td.dataset.prefix || '', suf = td.dataset.suffix || '';
         if (reduce) return;
-        let step = 0;
-        const steps = 14;
         setTimeout(() => {
-          const iv = setInterval(() => {
-            step++;
-            const v = to * Math.min(1, step / steps);
-            td.textContent = pre + v.toFixed(dec) + suf;
-            if (step >= steps) clearInterval(iv);
-          }, 45);
+          const t0 = performance.now();
+          const tick = (now) => {
+            const p = Math.min(1, (now - t0) / 1100);
+            td.textContent = pre + (to * (1 - Math.pow(1 - p, 3))).toFixed(dec) + suf;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
         }, k * 180);
       });
     });
@@ -362,13 +370,6 @@
     const rain = $('#rain');
     const svg = window.SPR.svg(window.SPR.MAPS.coin);
     beep([523, 659, 784, 1047, 784, 1047, 1319], 0.07);
-    const banner = document.createElement('div');
-    banner.className = 'rain-banner';
-    banner.textContent = lang === 'ru' ? '+30 ЖИЗНЕЙ · 0% КОМИССИИ*' : '+30 LIVES · 0% FEES*';
-    const note = document.createElement('small');
-    note.textContent = lang === 'ru' ? '*только в этой вкладке' : '*in this tab only';
-    banner.appendChild(note);
-    rain.appendChild(banner);
     for (let i = 0; i < 60; i++) {
       const c = document.createElement('i');
       c.innerHTML = svg;
@@ -381,6 +382,38 @@
     }
     setTimeout(() => { rain.innerHTML = ''; }, 4600);
   }
+
+  /* ---------- pixel Ё / Й ---------- */
+  // Press Start 2P draws Ё and Й as shrunken letters; rebuild them from Е / И plus pixel marks
+  const PIX = { 'Ё': 'yo', 'ё': 'yo', 'Й': 'yi', 'й': 'yi' };
+  function pixLetters(scope) {
+    const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+    const hits = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const p = n.parentElement;
+      if (!/[ЁёЙй]/.test(n.data) || p.classList.contains('yo') || p.classList.contains('yi')) continue;
+      const cs = getComputedStyle(p);
+      if (!cs.fontFamily.includes('Press Start')) continue;
+      hits.push([n, cs.textTransform === 'uppercase' ? /[ЁёЙй]/g : /[ЁЙ]/g]);
+    }
+    hits.forEach(([n, re]) => {
+      const text = n.data;
+      const frag = document.createDocumentFragment();
+      let last = 0;
+      text.replace(re, (ch, i) => {
+        frag.append(text.slice(last, i));
+        const s = document.createElement('span');
+        s.className = PIX[ch];
+        s.textContent = ch;
+        frag.append(s);
+        last = i + 1;
+      });
+      if (!last) return;
+      frag.append(text.slice(last));
+      n.replaceWith(frag);
+    });
+  }
+  pixLetters(document.body);
 
   setLang(lang);
 })();

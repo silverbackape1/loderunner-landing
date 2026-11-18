@@ -6,10 +6,13 @@
 <title>LODERUNNER — платёжная инфраструктура</title>
 <meta name="description" content="LODERUNNER — платёжная инфраструктура для high-risk: P2P и H2H приём в локальных валютах, выплаты и расчёт в USDT.">
 <meta name="theme-color" content="#12081f">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Press+Start+2P&family=Tiny5&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Press+Start+2P&family=Tiny5&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -35,7 +38,7 @@
 
     <div class="top-ctrl">
       <button class="chip" id="langBtn" type="button" aria-label="Switch language"><span class="ru">RU</span><span class="en">EN</span></button>
-      <button class="chip" id="sndBtn" type="button" aria-pressed="false">♪ <b>OFF</b></button>
+      <button class="chip" id="sndBtn" type="button" aria-pressed="false" aria-label="Sound"><i class="note" aria-hidden="true"></i> <b>OFF</b></button>
       <a class="btn btn-gold btn-sm" href="#start"><span class="ru">Подключиться</span><span class="en">Get started</span></a>
     </div>
   </div>
@@ -47,14 +50,14 @@
 <section class="hero" id="hero">
   <div class="wrap hero-head">
     <div class="hero-copy">
-      <p class="kicker"><span class="blink">▶</span> <span class="ru">Платёжная инфраструктура · high-risk</span><span class="en">Payment infrastructure · high-risk</span></p>
+      <p class="kicker"><i class="tri blink" aria-hidden="true"></i> <span class="ru">Платёжная инфраструктура · <span class="nw">high-risk</span></span><span class="en">Payment infrastructure · <span class="nw">high-risk</span></span></p>
       <h1>
-        <span class="ru">Собираем золото.<br><em>Без game&nbsp;over.</em></span>
-        <span class="en">Collect the gold.<br><em>Skip the game&nbsp;over.</em></span>
+        <span class="ru">Собираем золото<br><em>Без game&nbsp;over</em></span>
+        <span class="en">Collect the gold<br><em>Skip the game&nbsp;over</em></span>
       </h1>
       <p class="lead">
-        <span class="ru">Приём платежей в&nbsp;локальных валютах через P2P и&nbsp;H2H, выплаты и&nbsp;расчёт в&nbsp;USDT. Один API-ключ, маршрутизация между провайдерами и&nbsp;антифрод, который ловит врагов раньше, чем они доберутся до&nbsp;вашего баланса.</span>
-        <span class="en">Accept local-currency payments via P2P and H2H, pay out and settle in USDT. One API key, routing across providers, and antifraud that catches the bad guys before they get anywhere near your balance.</span>
+        <span class="ru">Приём платежей в&nbsp;локальных валютах через P2P, H2H интеграция, выплаты и&nbsp;расчёт в&nbsp;USDT</span>
+        <span class="en">Accept local-currency payments via P2P, H2H integration, payouts and settlement in USDT</span>
       </p>
       <div class="hero-cta">
         <a class="btn btn-gold" href="#start">PRESS START</a>
@@ -65,15 +68,14 @@
     <aside class="cart-label" aria-label="Spec">
       <div class="cart-notch" aria-hidden="true"></div>
       <div class="cart-inner">
-        <p class="cart-top">8-BIT PAYMENT SYSTEM</p>
+        <p class="cart-top">PAYMENT SYSTEM</p>
         <dl class="spec">
-          <div><dt>CART</dt><dd>LR-01</dd></div>
+          <div><dt>CART</dt><dd>LR-00</dd></div>
           <div><dt><span class="ru">ЖАНР</span><span class="en">GENRE</span></dt><dd>PAYMENTS</dd></div>
           <div><dt><span class="ru">ИГРОКИ</span><span class="en">PLAYERS</span></dt><dd>B2B</dd></div>
           <div><dt>CONTROLS</dt><dd>H2H API</dd></div>
           <div><dt>SAVE</dt><dd>USDT</dd></div>
         </dl>
-        <p class="cart-foot"><span class="ru">Совместим со всеми мерчантами</span><span class="en">Compatible with all merchants</span></p>
       </div>
     </aside>
   </div>
@@ -122,40 +124,40 @@
 
     <div class="carts">
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="p2p"></i><span class="cart-code">LR-02</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="p2p"></i><span class="cart-code">LR-01</span></div>
         <h3><span class="ru">Приём P2P</span><span class="en">P2P pay-in</span></h3>
         <p><span class="ru">Клиент платит привычным локальным переводом. Реквизиты подбираются под сумму, банк и&nbsp;лимиты.</span><span class="en">Customers pay with a familiar local transfer. Requisites are matched to the amount, bank and limits.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="api"></i><span class="cart-code">LR-03</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="api"></i><span class="cart-code">LR-02</span></div>
         <h3>H2H API</h3>
         <p><span class="ru">Server-to-server без редиректов. Один токен, <code>POST /v1/orders/</code>&nbsp;— и&nbsp;реквизиты уже в&nbsp;ответе.</span><span class="en">Server-to-server, no redirects. One token, <code>POST /v1/orders/</code> and the requisites are in the response.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="usdt"></i><span class="cart-code">LR-04</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="usdt"></i><span class="cart-code">LR-03</span></div>
         <h3><span class="ru">Расчёт в USDT</span><span class="en">USDT settlement</span></h3>
         <p><span class="ru">Баланс пополняется в&nbsp;момент закрытия сделки, по&nbsp;курсу из&nbsp;ответа. Вывод на&nbsp;ваш кошелёк по&nbsp;запросу.</span><span class="en">Your balance is credited the moment a deal closes, at the rate from the response. Withdraw to your wallet on request.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="payout"></i><span class="cart-code">LR-05</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="payout"></i><span class="cart-code">LR-04</span></div>
         <h3><span class="ru">Выплаты</span><span class="en">Payouts</span></h3>
         <p><span class="ru">На&nbsp;карту, счёт или по&nbsp;номеру телефона через СБП. Каждый шаг от&nbsp;«в&nbsp;пуле» до&nbsp;«выплачена» приходит колбэком.</span><span class="en">To a card, an account or a phone number via SBP. Every step from "in pool" to "paid" arrives as a callback.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="shield"></i><span class="cart-code">LR-06</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="shield"></i><span class="cart-code">LR-05</span></div>
         <h3><span class="ru">Антифрод и споры</span><span class="en">Antifraud &amp; disputes</span></h3>
         <p><span class="ru">Чёрный список по&nbsp;<code>client_id</code>, споры с&nbsp;файлом-подтверждением и&nbsp;учёт частичных возвратов без&nbsp;двойного списания.</span><span class="en">A blacklist by <code>client_id</code>, disputes backed by evidence files, and partial chargebacks without double deductions.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
       <article class="cart reveal" tabindex="0">
-        <div class="cart-head"><i class="spr spr-lg" data-spr="chart"></i><span class="cart-code">LR-07</span></div>
+        <div class="cart-head"><i class="spr spr-lg" data-spr="chart"></i><span class="cart-code">LR-06</span></div>
         <h3><span class="ru">Кабинет</span><span class="en">Dashboard</span></h3>
         <p><span class="ru">Сделки, баланс, токены и&nbsp;методы оплаты на&nbsp;одном экране. Данные обновляются в&nbsp;реальном времени.</span><span class="en">Deals, balance, tokens and payment methods on one screen. Data updates in real time.</span></p>
-        <span class="cart-sel">▶ SELECT</span>
+        <span class="cart-sel"><i class="tri" aria-hidden="true"></i> SELECT</span>
       </article>
     </div>
   </div>
@@ -186,10 +188,10 @@
 
     <div class="dialog reveal" aria-live="polite">
       <p class="dialog-title" id="dlgTitle">LEVEL 1 · REQUEST</p>
-      <p class="dialog-text"><span id="dlgText"></span><span class="caret">▼</span></p>
+      <p class="dialog-text"><span class="dlg-ghost" id="dlgGhost" aria-hidden="true"></span><span class="dlg-live"><span id="dlgText"></span><span class="caret"><i class="tri tri-down" aria-hidden="true"></i></span></span></p>
       <div class="dialog-nav">
-        <button type="button" class="chip" id="dlgPrev" aria-label="Prev">◀</button>
-        <button type="button" class="chip" id="dlgNext" aria-label="Next">▶</button>
+        <button type="button" class="chip" id="dlgPrev" aria-label="Prev"><i class="tri tri-left" aria-hidden="true"></i></button>
+        <button type="button" class="chip" id="dlgNext" aria-label="Next"><i class="tri" aria-hidden="true"></i></button>
       </div>
     </div>
   </div>
@@ -210,7 +212,7 @@
       <li class="w reveal"><span class="w-n">1-3</span><b class="w-cc">AZ</b><span class="w-name"><span class="ru">АЗЕРБАЙДЖАН</span><span class="en">AZERBAIJAN</span></span><span class="w-cur">AZN</span><span class="w-m">CARD · P2P</span></li>
       <li class="w reveal"><span class="w-n">1-4</span><b class="w-cc">KZ</b><span class="w-name"><span class="ru">КАЗАХСТАН</span><span class="en">KAZAKHSTAN</span></span><span class="w-cur">KZT</span><span class="w-m">CARD · P2P</span></li>
       <li class="w reveal"><span class="w-n">1-5</span><b class="w-cc">KG</b><span class="w-name"><span class="ru">КИРГИЗИЯ</span><span class="en">KYRGYZSTAN</span></span><span class="w-cur">KGS</span><span class="w-m">CARD · P2P</span></li>
-      <li class="w reveal"><span class="w-n">1-6</span><b class="w-cc">TR</b><span class="w-name"><span class="ru">ТУРЦИЯ</span><span class="en">TÜRKİYE</span></span><span class="w-cur">TRY</span><span class="w-m">FAST · HAVALE</span></li>
+      <li class="w reveal"><span class="w-n">1-6</span><b class="w-cc">TR</b><span class="w-name"><span class="ru">ТУРЦИЯ</span><span class="en">TURKEY</span></span><span class="w-cur">TRY</span><span class="w-m">FAST · HAVALE</span></li>
     </ul>
   </div>
 </section>
@@ -322,7 +324,7 @@
         <label><input type="checkbox" name="geo" value="KG"><span>KG</span></label>
         <label><input type="checkbox" name="geo" value="TR"><span>TR</span></label>
       </fieldset>
-      <button class="btn btn-gold btn-block" type="submit">▶ <span class="ru">Написать в Telegram</span><span class="en">Send via Telegram</span></button>
+      <button class="btn btn-gold btn-block" type="submit"><i class="tri" aria-hidden="true"></i> <span class="ru">Написать в Telegram</span><span class="en">Send via Telegram</span></button>
       <p class="form-note" id="formNote"><span class="ru">Откроем чат с&nbsp;@Rick_LodeRunner с&nbsp;готовым сообщением&nbsp;— останется нажать «Отправить». Текст также скопируется в&nbsp;буфер.</span><span class="en">We'll open a chat with @Rick_LodeRunner with the message ready — just hit Send. The text is also copied to your clipboard.</span></p>
     </form>
   </div>
